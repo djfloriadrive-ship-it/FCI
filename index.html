@@ -1,306 +1,389 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0C0A09" />
-  <meta name="description" content="Flória é a curadoria musical de Nathalia Dias para eventos, marcas e experiências em Curitiba e região." />
-  <title>Flória — Música que dá identidade ao seu evento</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = { theme: { extend: {
-      fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], serif: ['Fraunces', 'serif'] },
-      colors: { ink: '#0C0A09', cream: '#FDFBF7', orange: '#F97316', sand: '#EEEAE3' }
-    } } };
-  </script>
-  <style>
-    :root { --orange:#F97316; --ink:#0C0A09; --cream:#FDFBF7; }
-    *, *::before, *::after { box-sizing:border-box; }
-    html, body { max-width:100%; overflow-x:hidden; }
-    img, video, svg { max-width:100%; }
-    button, input, select, textarea { font:inherit; }
-    body { background:var(--cream); color:var(--ink); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; font-synthesis:none; }
-    .glass { background:rgba(255,255,255,.68); backdrop-filter:saturate(180%) blur(22px); -webkit-backdrop-filter:saturate(180%) blur(22px); box-shadow:0 1px 24px rgba(12,10,9,.045); }
-    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,1,.3,1); }
-    .reveal.active { opacity:1; transform:none; }
-    .hero-overlay { background:linear-gradient(90deg,rgba(12,10,9,.78) 0%,rgba(12,10,9,.34) 48%,rgba(12,10,9,.04) 100%); }
-    .hero-transition { position:absolute; inset-inline:0; bottom:0; height:clamp(4.5rem,9vw,7.5rem); z-index:1; pointer-events:none; background:linear-gradient(to bottom, rgba(253,251,247,0) 0%, rgba(253,251,247,.03) 48%, rgba(253,251,247,.18) 76%, rgba(253,251,247,.72) 94%, var(--cream) 100%); }
-    .choice { min-width:0; transition:.2s ease; overflow:hidden; }
-    .choice:has(input:checked) { border-color:var(--orange); background:#fff7ed; color:var(--ink); box-shadow:0 0 0 3px rgba(249,115,22,.10); }
-    .choice input { flex:0 0 auto; accent-color:var(--orange); }
-    .curation-card { transition:transform .3s ease, box-shadow .3s ease; }
-    .curation-card:hover { transform:translateY(-4px); box-shadow:0 16px 35px rgba(12,10,9,.08); }
-    .warm-dark { --mx:18%; --my:12%; position:relative; overflow:hidden; background:radial-gradient(circle at var(--mx) var(--my), rgba(249,115,22,.22) 0%, rgba(249,115,22,.07) 18%, transparent 42%), radial-gradient(ellipse 60% 70% at 92% 88%, rgba(190,72,17,.18) 0%, transparent 68%), radial-gradient(ellipse 70% 55% at 45% 100%, rgba(120,46,16,.12) 0%, transparent 70%), #0c0a09; }
-    .warm-dark::before { content:""; position:absolute; width:18rem; height:18rem; top:-9rem; right:12%; border-radius:50%; background:radial-gradient(circle, rgba(249,115,22,.12), transparent 68%); filter:blur(10px); pointer-events:none; animation:amber-breathe 7s ease-in-out infinite alternate; }
-    .warm-dark > * { position:relative; z-index:1; }
-    @keyframes amber-breathe { from { opacity:.45; transform:scale(.92); } to { opacity:.9; transform:scale(1.08); } }
-    .warm-dark .curation-card, .warm-dark .set-card { box-shadow:0 18px 50px rgba(249,115,22,.08), inset 0 1px 0 rgba(255,255,255,.08); }
-    .set-card { transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
-    .set-card:hover { transform:translateY(-4px); border-color:rgba(249,115,22,.7); box-shadow:0 20px 50px rgba(249,115,22,.14), inset 0 1px 0 rgba(255,255,255,.1); }
-    .showcase-video { background:#0c0a09; }
-    .video-poster-fallback { position:absolute; inset:0; z-index:2; width:100%; height:100%; object-fit:cover; object-position:center; opacity:1; visibility:visible; transition:opacity .22s ease, visibility .22s ease; pointer-events:none; }
-    .video-poster-fallback.is-hidden { opacity:0; visibility:hidden; }
-
-    .showcase-video video { display:block; }
-    video[controls] { color-scheme:dark; }
-    @media (prefers-reduced-motion: reduce) { .reveal, .curation-card { transition:none; } }
-    .field { width:100%; min-width:0; box-sizing:border-box; border:1px solid #e7e5e4; background:#fafaf9; border-radius:14px; padding:14px 16px; font-size:14px; outline:none; transition:.2s ease; }
-    .field:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(249,115,22,.12); background:white; }
-    .eyebrow { letter-spacing:.24em; font-size:10px; font-weight:800; text-transform:uppercase; }
-    .icon-arrow { display:inline-grid; place-items:center; width:1.35rem; height:1.35rem; flex:0 0 auto; border:1px solid currentColor; border-radius:999px; }
-    .icon-arrow svg { width:.75rem; height:.75rem; }
-    a, button { -webkit-tap-highlight-color:transparent; }
-    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:2px solid var(--orange); outline-offset:3px; }
-    button[type="submit"] { border:1px solid rgba(249,115,22,.68); box-shadow:inset 0 1px 0 rgba(255,255,255,.24), 0 8px 22px rgba(249,115,22,.14); transition:transform .25s ease, box-shadow .25s ease, background .25s ease; }
-    button[type="submit"]:hover { box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 12px 26px rgba(12,10,9,.16); }
-    button[type="submit"]:active { transform:translateY(1px); }
-    .primary-cta .icon-arrow { width:2rem; height:2rem; }
-    .luxury-cta { position:relative; isolation:isolate; overflow:hidden; border:1px solid rgba(249,115,22,.72) !important; background:linear-gradient(135deg,rgba(12,10,9,.96),rgba(42,22,13,.92)) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.14), inset 0 0 0 1px rgba(249,115,22,.12), 0 10px 28px rgba(249,115,22,.16), 0 0 34px rgba(249,115,22,.10); transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease, background .28s ease; }
-    .luxury-cta::before { content:""; position:absolute; inset:4px; z-index:-1; border:1px solid rgba(249,115,22,.22); border-radius:999px; pointer-events:none; }
-    .luxury-cta:hover { border-color:rgba(255,255,255,.8) !important; background:linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 14px 34px rgba(249,115,22,.28), 0 0 46px rgba(249,115,22,.18); }
-    .luxury-cta .icon-arrow { background:rgba(249,115,22,.12); border-color:rgba(249,115,22,.75); box-shadow:0 0 18px rgba(249,115,22,.18); }
-    .luxury-submit { min-height:3.5rem; border:1px solid rgba(249,115,22,.68) !important; background:linear-gradient(135deg,#0c0a09,#2a160d) !important; color:#fff !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.16), inset 0 0 0 1px rgba(249,115,22,.12), 0 10px 26px rgba(249,115,22,.18); }
-    .luxury-submit:hover { background:linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.26), 0 14px 32px rgba(249,115,22,.28); }
-    .luxury-submit .icon-arrow { border-color:rgba(255,255,255,.55); }
-    .nav-tech-cta { position:relative; overflow:hidden; white-space:nowrap; border:1px solid rgba(249,115,22,.58) !important; background:linear-gradient(135deg,rgba(12,10,9,.98),rgba(42,22,13,.94)) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.16), inset 0 0 0 1px rgba(249,115,22,.12), 0 8px 24px rgba(249,115,22,.12); transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease, background .25s ease; }
-    .nav-tech-cta::after { content:""; position:absolute; inset:3px; border:1px solid rgba(249,115,22,.18); border-radius:999px; pointer-events:none; }
-    .nav-tech-cta:hover { transform:translateY(-1px); border-color:rgba(249,115,22,.92) !important; background:linear-gradient(135deg,#f97316,#c2410c) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.26), 0 10px 28px rgba(249,115,22,.22); }
-    .nav-tech-cta:active { transform:translateY(0); }
-    .nav-tech-cta-mobile { padding:.68rem .8rem !important; font-size:9px !important; }
-    .type-display { letter-spacing:-.035em; text-wrap:balance; }
-    .type-display em { letter-spacing:-.045em; }
-
-
-    @media (max-width:640px) {
-      .briefing-card { width:100%; min-width:0; padding:1.25rem; border-radius:24px; }
-      .briefing-form { width:100%; min-width:0; }
-      .briefing-form .grid { min-width:0; }
-      .briefing-form .choice { min-height:3rem; padding:.7rem .65rem; line-height:1.2; }
-      .briefing-form button { min-height:3.35rem; padding:.8rem .9rem; line-height:1.35; }
-    }
-    h1,h2,h3 { text-wrap:balance; }
-    p { text-wrap:pretty; }
-    @media (max-width:640px) {
-      .eyebrow { letter-spacing:.18em; }
-      .mobile-nav { background:rgba(255,255,255,.76); }
-      .hero-image { object-position:32% 68%; }
-      .hero-overlay { background:linear-gradient(180deg,rgba(12,10,9,.20) 0%,rgba(12,10,9,.08) 38%,rgba(12,10,9,.78) 100%); }
-      .hero-transition { height:5rem; background:linear-gradient(to bottom, rgba(253,251,247,0) 0%, rgba(253,251,247,.03) 50%, rgba(253,251,247,.18) 78%, rgba(253,251,247,.76) 95%, var(--cream) 100%); }
-      .hero-content { padding-bottom:2.25rem; }
-      .hero-content h1 { font-size:clamp(3.35rem, 15vw, 5.25rem); letter-spacing:-.055em; }
-      .hero-content > div:last-child { border-left:0; border-top:1px solid rgba(255,255,255,.28); padding:1.25rem 0 0; }
-      .hero-content > div:last-child p { font-size:1.3rem; line-height:1.1; }
-      .primary-cta { width:100%; justify-content:space-between; padding:.85rem 1rem .85rem 1.15rem; }
-      .primary-cta .icon-arrow { display:grid; place-items:center; width:2rem; height:2rem; border:1px solid rgba(255,255,255,.35); border-radius:999px; }
-      .mobile-section { padding-top:3.5rem; padding-bottom:3.5rem; }
-      .curation-card { border:1px solid rgba(231,229,228,.7); }
-    }
-    @media (prefers-reduced-motion: reduce) { .reveal, .curation-card, .primary-cta { transition:none; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico Executivo: Lógica do FCI, Origem do Item & Alíquotas de ICMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); }
+    </style>
 </head>
-<body class="antialiased">
-  <nav class="mobile-nav fixed top-0 z-50 w-full glass border-b border-white/70">
-    <div class="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-6">
-      <a href="#top" class="font-serif text-[22px] font-bold tracking-tight">FLÓRIA<span class="text-orange">.</span></a>
-      <div class="hidden items-center gap-8 md:flex">
-        <a href="#experiencia" class="eyebrow hover:text-orange">Experiência</a>
-        <a href="#ocasioes" class="eyebrow hover:text-orange">Ocasiões</a>
-        <a href="#experiencia-em-movimento" class="eyebrow hover:text-orange">Na prática</a>
-        <a href="#sets" class="eyebrow hover:text-orange">Sets</a>
-        <a href="#sobre" class="eyebrow hover:text-orange">A artista</a>
-        <a href="#briefing" class="nav-tech-cta rounded-full border border-white/10 bg-ink/95 px-4 py-2 text-[10px] font-bold uppercase tracking-[.15em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_5px_14px_rgba(12,10,9,.10)] transition">Consultar disponibilidade</a>
-      </div>
-      <a href="#briefing" class="nav-tech-cta nav-tech-cta-mobile rounded-full border border-white/15 bg-ink/95 px-3.5 py-2 text-[9px] font-bold uppercase tracking-[.13em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.16),0_5px_14px_rgba(12,10,9,.10)] md:hidden">Consultar</a>
-    </div>
-  </nav>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
 
-  <main id="top">
-    <section class="relative flex min-h-[760px] items-end overflow-hidden bg-ink pt-20 text-white md:min-h-[760px]">
-      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663971502946/mqgWuRwgfnOigsfW.jpeg" alt="Flória em performance no sunset" fetchpriority="high" decoding="async" class="hero-image absolute inset-0 h-full w-full object-cover object-center opacity-80" />
-      <div class="hero-overlay absolute inset-0"></div>
-      <div class="hero-transition"></div>
-      <div class="hero-content relative z-10 mx-auto grid w-full max-w-7xl gap-12 px-6 pb-20 lg:grid-cols-12 lg:items-end">
-        <div class="reveal max-w-[33rem] lg:col-span-6">
-          <p class="eyebrow mb-6 text-orange">Curadoria musical para experiências com identidade</p>
-          <h1 class="type-display max-w-[31rem] font-serif text-6xl font-semibold leading-[.92] tracking-tight md:text-8xl">O som certo<br><em class="font-normal text-stone-300">muda tudo.</em></h1>
-          <p class="mt-8 max-w-[27rem] text-lg font-light leading-relaxed text-stone-200 md:text-xl">DJ e curadoria musical para eventos que querem ser lembrados pela atmosfera, não apenas pelo volume.</p>
-          <a href="#briefing" class="primary-cta luxury-cta mt-10 inline-flex items-center gap-3 rounded-full border border-orange/70 bg-orange px-6 py-3.5 text-[10px] font-extrabold uppercase tracking-[.18em] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.24),0_8px_22px_rgba(249,115,22,.16)] transition hover:-translate-y-1 hover:border-white hover:bg-white hover:text-ink">Quero criar meu evento <span class="icon-arrow" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16 16 4M7 4h9v9" stroke-linecap="round" stroke-linejoin="round" /></svg></span></a>
+    <!-- Header Executivo -->
+    <header class="gradient-header text-white py-10 px-6 sm:px-12 mb-10 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3 border border-blue-400/30">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Gestão Tributária & Precificação
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                    FCI, Origem do Item & ICMS Interestadual
+                </h1>
+                <p class="text-slate-300 mt-2 text-base max-w-2xl">
+                    Guia visual de impacto entre Custo de Insumo Importado, Preço de Venda, Código de Origem (3, 5, 8) e Alíquota do ICMS.
+                </p>
+            </div>
         </div>
-        <div class="reveal border-l border-white/30 pl-6 lg:col-span-4">
-          <p class="font-serif text-2xl italic">Para quem entende que música também é cenário, memória e posicionamento.</p>
-        </div>
-      </div>
-    </section>
+    </header>
 
-    <section id="experiencia" class="mobile-section bg-cream py-16 md:py-24">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="reveal max-w-3xl"><p class="eyebrow text-orange">Mais do que tocar músicas</p><h2 class="type-display mt-5 font-serif text-4xl font-semibold leading-tight md:text-6xl">Uma leitura sensível do ambiente, do público e do momento.</h2></div>
-        <div class="mt-14 grid gap-5 md:grid-cols-3"><article class="curation-card reveal rounded-[28px] bg-white p-8 shadow-sm"><span class="font-serif text-4xl text-orange">01</span><h3 class="mt-16 text-lg font-bold">Curadoria com intenção</h3><p class="mt-4 text-sm leading-7 text-stone-500">A trilha é pensada para a identidade do evento, o perfil dos convidados e a energia que você quer construir.</p></article><article class="curation-card reveal rounded-[28px] bg-white p-8 shadow-sm"><span class="font-serif text-4xl text-orange">02</span><h3 class="mt-16 text-lg font-bold">Fluidez na pista</h3><p class="mt-4 text-sm leading-7 text-stone-500">Transições, ritmo e repertório acompanham a resposta real das pessoas — sem fórmula pronta ou playlist engessada.</p></article><article class="curation-card reveal rounded-[28px] bg-white p-8 shadow-sm"><span class="font-serif text-4xl text-orange">03</span><h3 class="mt-16 text-lg font-bold">Presença profissional</h3><p class="mt-4 text-sm leading-7 text-stone-500">Planejamento, comunicação e cuidado técnico para você aproveitar o evento com tranquilidade do início ao fim.</p></article></div>
-      </div>
-    </section>
+    <main class="max-w-6xl mx-auto px-4 sm:px-8 space-y-10">
 
-    <section id="ocasioes" class="mobile-section warm-dark py-16 text-white md:py-24">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="grid gap-12 lg:grid-cols-12 lg:items-end"><div class="reveal lg:col-span-7"><p class="eyebrow text-orange">Uma assinatura sonora para cada ocasião</p><h2 class="type-display mt-5 font-serif text-4xl font-semibold leading-tight md:text-6xl">Qual é a atmosfera que você quer deixar?</h2></div><p class="reveal text-sm leading-7 text-stone-600 lg:col-span-4 lg:col-start-9">Do almoço que pede leveza à celebração que vira pista: a Flória adapta a experiência sem perder elegância, personalidade e conexão.</p></div>
-        <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="reveal rounded-3xl bg-white p-6 text-ink"><p class="eyebrow text-stone-400">01</p><h3 class="mt-10 font-serif text-2xl">Almoços & encontros</h3><p class="mt-3 text-sm leading-6 text-stone-600">Presença sonora que acompanha a conversa e valoriza o ambiente.</p></div>
-          <div class="reveal rounded-3xl bg-white p-6 text-ink"><p class="eyebrow text-stone-400">02</p><h3 class="mt-10 font-serif text-2xl">Festas & celebrações</h3><p class="mt-3 text-sm leading-6 text-stone-600">Da recepção à pista, uma narrativa musical que cresce junto com a noite.</p></div>
-          <div class="reveal rounded-3xl bg-white p-6 text-ink"><p class="eyebrow text-stone-400">03</p><h3 class="mt-10 font-serif text-2xl">Marcas & academias</h3><p class="mt-3 text-sm leading-6 text-stone-600">Energia alinhada à experiência da marca, ao público e ao espaço.</p></div>
-          <div class="reveal rounded-3xl bg-white p-6 text-ink"><p class="eyebrow text-stone-400">04</p><h3 class="mt-10 font-serif text-2xl">Formaturas & casamentos</h3><p class="mt-3 text-sm leading-6 text-stone-600">Momentos importantes conduzidos com sensibilidade, presença e personalidade.</p></div>
-        </div>
-      </div>
-    </section>
+        <!-- 1. A Fórmula de Forma Clara -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-6">
+                <i data-lucide="calculator" class="text-blue-600"></i>
+                1. Como Funciona a Matemática do FCI (Conteúdo de Importação)
+            </h2>
 
-    <section id="prova-social" class="mobile-section bg-cream py-16 md:py-24"><div class="mx-auto max-w-7xl px-6"><div class="grid gap-12 lg:grid-cols-12 lg:items-end"><div class="reveal lg:col-span-5"><p class="eyebrow text-orange">A experiência na prática</p><h2 class="type-display mt-5 font-serif text-4xl font-semibold leading-tight md:text-6xl">Quando a música acontece, as pessoas percebem.</h2><p class="mt-7 max-w-md text-lg font-light leading-relaxed text-stone-500">Cada evento tem uma energia própria. O trabalho da Flória é perceber essa energia e transformá-la em uma experiência que os convidados comentam depois.</p></div><div class="reveal lg:col-span-6 lg:col-start-7"><div class="relative overflow-hidden rounded-[32px] bg-ink"><img data-video-poster class="video-poster-fallback" src="https://res.cloudinary.com/pai48o4n/video/upload/so_2/Soma_galeria.jpg" alt="Nathalia tocando em um evento ao ar livre" /><video aria-label="Vídeo de Nathalia Dias tocando em um evento ao ar livre" class="h-[420px] w-full object-cover object-[50%_46%] opacity-90" controls data-scroll-video autoplay muted loop playsinline webkit-playsinline preload="auto" fetchpriority="high" poster="https://res.cloudinary.com/pai48o4n/video/upload/so_2/Soma_galeria.jpg" style="background:url(https://res.cloudinary.com/pai48o4n/video/upload/so_2/Soma_galeria.jpg) center/cover no-repeat #0c0a09;"><source src="https://res.cloudinary.com/pai48o4n/video/upload/v1790432852/Soma_galeria.mp4" type="video/mp4" /><source src="https://res.cloudinary.com/pai48o4n/video/upload/v1790432852/Soma_galeria.mp4" type="video/mp4" />Seu navegador não suporta vídeo.</video><div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink via-ink/60 to-transparent p-7 pt-28"><p class="eyebrow text-orange">Evento ao ar livre · Curitiba e região</p><p class="mt-2 font-serif text-2xl text-white">Som integrado ao espaço e ao momento.</p></div></div></div></div><div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"><figure class="reveal overflow-hidden rounded-3xl border border-stone-200 bg-white"><img src="https://i.imgur.com/0hBLA1z.png" alt="Depoimento de cliente sobre a Flória" class="h-auto min-h-40 w-full bg-stone-50 object-contain object-top" /><figcaption class="p-5 text-xs leading-5 text-stone-500">“Todos amaram... foi o ponto alto da festa e todo mundo pedindo o seu contato.”</figcaption></figure><figure class="reveal overflow-hidden rounded-3xl border border-stone-200 bg-white"><img src="https://i.imgur.com/H6OOjop.png" alt="Depoimento de convidados sobre a DJ" class="h-auto min-h-40 w-full bg-stone-50 object-contain object-top" /><figcaption class="p-5 text-xs leading-5 text-stone-500">“Amaram muito. A DJ é o máximo.”</figcaption></figure><figure class="reveal overflow-hidden rounded-3xl border border-stone-200 bg-white"><img src="https://i.imgur.com/JiEWnsO.png" alt="Depoimento sobre o sucesso da apresentação" class="h-auto min-h-40 w-full bg-stone-50 object-contain object-top" /><figcaption class="p-5 text-xs leading-5 text-stone-500">“Todo mundo amou você. Pediram seu contato.”</figcaption></figure></div></div></section>
+            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 flex flex-col md:flex-row items-center justify-around gap-6">
+                <div class="text-center md:text-left">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Coeficiente FCI (%)</span>
+                    <p class="text-2xl font-black text-slate-800 mt-1">CI = (Insumo / Preço) × 100</p>
+                    <p class="text-xs text-slate-500 mt-1">Calculado item a item na produção</p>
+                </div>
 
-    <section id="sets" class="warm-dark py-16 text-white md:py-20">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div class="reveal lg:col-span-6">
-            <p class="eyebrow text-orange">Escute antes de contratar</p>
-            <h2 class="mt-5 max-w-3xl font-serif text-4xl font-semibold leading-tight md:text-6xl">Cada set revela uma entrega diferente.</h2>
-          </div>
-          <p class="reveal max-w-md text-sm leading-7 text-stone-300 lg:col-span-4 lg:col-start-9">A melhor forma de entender a curadoria da Flória é ouvir como a atmosfera se constrói: do lounge ao sunset, da conversa à pista.</p>
-        </div>
-        <div class="mt-12 grid gap-4 md:grid-cols-2">
-          <a class="set-card reveal group rounded-[28px] border border-orange/25 bg-black/25 p-7 backdrop-blur-sm" href="https://on.soundcloud.com/eGiURAnsH6b6lg6sBx" target="_blank" rel="noopener noreferrer">
-            <div class="flex items-start justify-between gap-6"><span class="font-serif text-4xl text-orange">01</span><span class="icon-arrow text-orange transition group-hover:rotate-45" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16 16 4M7 4h9v9" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
-            <p class="eyebrow mt-12 text-orange">SoundCloud</p><h3 class="mt-3 font-serif text-3xl">Sets para sentir a atmosfera</h3><p class="mt-4 max-w-md text-sm leading-6 text-stone-300">Seleções que mostram textura, fluidez e construção de energia para recepções, almoços e sunsets.</p><span class="mt-7 inline-block text-[10px] font-extrabold uppercase tracking-[.18em] text-white">Ouvir no SoundCloud ↗</span>
-          </a>
-          <a class="set-card reveal group rounded-[28px] border border-orange/25 bg-black/25 p-7 backdrop-blur-sm" href="https://www.youtube.com/@DJFloria" target="_blank" rel="noopener noreferrer">
-            <div class="flex items-start justify-between gap-6"><span class="font-serif text-4xl text-orange">02</span><span class="icon-arrow text-orange transition group-hover:rotate-45" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16 16 4M7 4h9v9" stroke-linecap="round" stroke-linejoin="round" /></svg></span></div>
-            <p class="eyebrow mt-12 text-orange">YouTube</p><h3 class="mt-3 font-serif text-3xl">Sets para ver a experiência</h3><p class="mt-4 max-w-md text-sm leading-6 text-stone-300">Vídeos para perceber presença, leitura de ambiente e a forma como o som ocupa cada espaço.</p><span class="mt-7 inline-block text-[10px] font-extrabold uppercase tracking-[.18em] text-white">Assistir no YouTube ↗</span>
-          </a>
-        </div>
-      </div>
-    </section>
+                <div class="hidden md:block h-16 w-px bg-slate-300"></div>
 
-    <section id="experiencia-em-movimento" class="mobile-section warm-dark py-16 text-white md:py-24"><div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12 lg:items-center"><div class="reveal lg:col-span-5"><p class="eyebrow text-orange">Experiência em movimento</p><h2 class="type-display mt-5 font-serif text-4xl font-semibold leading-tight md:text-6xl">Do almoço ao sunset, o som acompanha o cenário.</h2><p class="mt-7 text-lg font-light leading-relaxed text-stone-300">Neste evento, a curadoria ocupou o espaço com leveza: uma atmosfera lounge, sofisticada e viva, sem interromper as conversas nem competir com a experiência.</p><p class="mt-6 text-sm leading-7 text-stone-300">É esse tipo de leitura que torna a Flória uma escolha natural para rooftops, restaurantes, eventos corporativos, academias e celebrações durante o dia.</p></div><div class="reveal lg:col-span-5 lg:col-start-8"><div class="relative overflow-hidden rounded-[32px] bg-ink shadow-xl"><img data-video-poster class="video-poster-fallback" src="https://res.cloudinary.com/pai48o4n/video/upload/so_2/Felling_good.jpg" alt="Detalhe da controladora durante uma apresentação lounge" /><video aria-label="Vídeo vertical de Nathalia Dias em uma apresentação lounge" class="aspect-[9/16] max-h-[620px] w-full object-cover object-[50%_46%]" controls data-scroll-video autoplay muted loop playsinline webkit-playsinline preload="auto" poster="https://res.cloudinary.com/pai48o4n/video/upload/so_2/Felling_good.jpg" style="background:url(https://res.cloudinary.com/pai48o4n/video/upload/so_2/Felling_good.jpg) center/cover no-repeat #0c0a09;"><source src="https://res.cloudinary.com/pai48o4n/video/upload/q_auto,f_auto/v1790432928/Felling_good.mp4" type="video/mp4" /><source src="https://res.cloudinary.com/pai48o4n/video/upload/q_auto,f_auto/v1790432928/Felling_good.mov" type="video/quicktime" />Seu navegador não suporta vídeo.</video><div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-6 pt-20"><p class="eyebrow text-orange">Lounge · brunch · sunset</p><p class="mt-2 font-serif text-xl text-white">Curadoria musical para ambientes sofisticados.</p></div></div></div></div></section>
+                <div class="flex flex-col gap-3 w-full md:w-auto">
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">N</div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold uppercase">Numerador (Topo)</span>
+                            <p class="text-sm font-semibold text-slate-700">Valor do Insumo Importado (R$)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">D</div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold uppercase">Denominador (Base)</span>
+                            <p class="text-sm font-semibold text-slate-700">Preço de Venda Interestadual sem Tributos (R$)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <section id="estrutura" class="bg-cream py-16 md:py-20"><div class="mx-auto max-w-7xl px-6"><div class="reveal max-w-3xl"><p class="eyebrow text-orange">Tudo pensado para o seu evento</p><h2 class="type-display mt-5 font-serif text-4xl font-semibold leading-tight md:text-6xl">A experiência começa antes do primeiro play.</h2></div><div class="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-4"><div class="reveal border-t border-stone-200 pt-5"><p class="eyebrow text-stone-400">01 · Curadoria</p><p class="mt-4 text-sm leading-6 text-stone-600">Pesquisa musical prévia e repertório construído para o perfil do evento.</p></div><div class="reveal border-t border-stone-200 pt-5"><p class="eyebrow text-stone-400">02 · Técnica</p><p class="mt-4 text-sm leading-6 text-stone-600">Setup Pioneer/MacBook e sistema de som em coluna, com montagem limpa e discreta.</p></div><div class="reveal border-t border-stone-200 pt-5"><p class="eyebrow text-stone-400">03 · Logística</p><p class="mt-4 text-sm leading-6 text-stone-600">Chegada com antecedência para montagem e passagem de som antes dos convidados chegarem.</p></div><div class="reveal border-t border-stone-200 pt-5"><p class="eyebrow text-stone-400">04 · Cuidado</p><p class="mt-4 text-sm leading-6 text-stone-600">Para até 150 pessoas em eventos sociais ou pistas intimistas, com proteção adequada para o equipamento.</p></div></div><div class="reveal mt-12 rounded-3xl bg-stone-100 p-7 text-sm leading-7 text-stone-600 md:p-9"><strong class="text-ink">Para o espaço:</strong> é necessário disponibilizar uma mesa plana e estável, ponto de energia aterrado e cobertura contra sol direto ou chuva. A Flória chega com antecedência para que tudo esteja pronto com tranquilidade.</div></div></section>
+        <!-- 2. A Régua de Corte e Origem das Mercadorias -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-2">
+                <i data-lucide="git-commit" class="text-indigo-600"></i>
+                2. A Régua de Origem do Item e Alíquota de ICMS
+            </h2>
+            <p class="text-xs text-slate-500 mb-6">Dependendo do percentual apurado de FCI, o produto recebe um Código de Origem específico na nota fiscal.</p>
 
-    <section id="sobre" class="mobile-section bg-cream py-16 md:py-24"><div class="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12 lg:items-center"><div class="reveal lg:col-span-5"><div class="relative mx-auto max-w-[470px] pb-12"><div class="overflow-hidden rounded-[32px] bg-stone-100 shadow-sm"><img src="https://i.imgur.com/9tubDoR.jpg" alt="Nathalia Dias em retrato de estúdio" class="h-[570px] w-full object-cover object-center transition duration-700 hover:scale-[1.02]" /></div><div class="absolute bottom-0 right-0 w-[48%] rounded-[24px] border-8 border-cream bg-ink shadow-2xl"><img src="https://i.imgur.com/ZoAEiYJ.jpg" alt="Nathalia Dias tocando em uma apresentação" class="aspect-[4/5] w-full rounded-[16px] object-cover" /></div></div></div><div class="reveal lg:col-span-6 lg:col-start-7"><p class="eyebrow text-orange">A mente por trás da Flória</p><h2 class="mt-5 font-serif text-4xl font-semibold leading-tight md:text-5xl">Nathalia Dias transforma discotecagem em design sonoro.</h2><div class="mt-8 space-y-5 text-lg font-light leading-relaxed text-stone-600"><p>Formada pela <strong>Yellow DJ Academy</strong> e lapidada pela mentoria de <strong>Kaká Franco</strong>, Nathalia une pesquisa musical, rigor técnico e sensibilidade estética.</p><p>Foi DJ residente da <strong>Mercadoteca do Shopping Crystal</strong> e já passou por Club Vibe, Phunk Soundroom, Hera Bar, Supafine, eventos privados e corporativos.</p></div></div></div></section>
+            <div class="relative my-6">
+                <!-- Barra Visual Trifásica -->
+                <div class="h-10 w-full bg-slate-200 rounded-xl flex overflow-hidden p-1 border border-slate-300">
+                    <div class="w-[40%] bg-emerald-500 rounded-l-lg flex items-center justify-center text-white text-xs font-bold transition-all">
+                        CI ≤ 40% (Origem 5)
+                    </div>
+                    <div class="w-[30%] bg-amber-500 flex items-center justify-center text-white text-xs font-bold transition-all border-l border-r border-white/30">
+                        40% < CI ≤ 70% (Origem 3)
+                    </div>
+                    <div class="w-[30%] bg-rose-600 rounded-r-lg flex items-center justify-center text-white text-xs font-bold transition-all">
+                        CI > 70% (Origem 8)
+                    </div>
+                </div>
 
-    <section id="briefing" class="warm-dark py-20 text-white md:py-28"><div class="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-12"><div class="reveal lg:col-span-5"><p class="eyebrow text-orange">Vamos conversar sobre o seu evento</p><h2 class="type-display mt-5 font-serif text-5xl font-semibold leading-[.98] md:text-7xl">Me conte o contexto.<br><em class="font-normal text-stone-400">Eu cuido do som.</em></h2><p class="mt-8 max-w-md text-lg font-light leading-relaxed text-stone-400">Preencha o briefing rápido. Ele me ajuda a entender a ocasião e retornar com uma proposta pensada para você.</p><div class="mt-12 space-y-5 text-sm text-stone-300"><p><span class="mr-3 text-orange">✓</span> Atendimento direto pelo WhatsApp</p><p><span class="mr-3 text-orange">✓</span> Proposta personalizada para cada evento</p><p><span class="mr-3 text-orange">✓</span> Datas e logística avaliadas caso a caso</p></div></div>
-      <div class="briefing-card reveal rounded-[32px] bg-white p-7 text-ink shadow-2xl md:p-10 lg:col-span-6 lg:col-start-7"><form id="briefingForm" class="briefing-form space-y-6"><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Seu nome</label><input class="field" id="name" required placeholder="Como posso te chamar?" /></div><div class="grid gap-5 sm:grid-cols-2"><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Data do evento</label><input class="field" id="date" type="date" /><p class="mt-2 text-[10px] leading-4 text-stone-400">Se ainda não estiver fechada, escolha uma data aproximada.</p></div><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Localização</label><select class="field" id="location" required><option value="">Selecione</option><option>São José dos Pinhais</option><option>Curitiba</option><option>Região Metropolitana</option><option>Outra região próxima</option></select></div></div><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Período ou observação sobre a data <span class="font-normal normal-case tracking-normal text-stone-400">(opcional)</span></label><input class="field" id="period" placeholder="Ex.: manhã, tarde, noite ou algum fim de semana de novembro" /></div><div><label class="mb-3 block text-xs font-bold uppercase tracking-widest text-stone-500">Duração aproximada da apresentação</label><div class="grid grid-cols-2 gap-2 sm:grid-cols-4"><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="duration" value="Até 2 horas" required /> Até 2h</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="duration" value="De 2 a 3 horas" /> 2–3h</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="duration" value="De 3 a 4 horas" /> 3–4h</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="duration" value="Mais de 4 horas ou ainda definindo" /> 4h+ / definir</label></div></div><div class="grid gap-5 sm:grid-cols-2"><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Horário de início <span class="font-normal normal-case tracking-normal text-stone-400">(aprox.)</span></label><input class="field" id="startTime" type="time" /></div><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Horário de término <span class="font-normal normal-case tracking-normal text-stone-400">(aprox.)</span></label><input class="field" id="endTime" type="time" /></div></div><div><label class="mb-3 block text-xs font-bold uppercase tracking-widest text-stone-500">Qual é a ocasião?</label><div class="grid grid-cols-2 gap-2"><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Almoço ou encontro" required /> Almoço / encontro</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Festa" /> Festa</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Evento em academia" /> Academia</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Formatura" /> Formatura</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Casamento" /> Casamento</label><label class="choice flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 p-3 text-xs"><input type="radio" name="event" value="Evento corporativo ou de marca" /> Corporativo / marca</label></div></div><div><label class="mb-3 block text-xs font-bold uppercase tracking-widest text-stone-500">Quantas pessoas, aproximadamente?</label><select class="field" id="guests" required><option value="">Selecione uma faixa</option><option>Abaixo de 50 pessoas</option><option>De 50 a 100 pessoas</option><option>De 101 a 150 pessoas</option><option>Acima de 150 pessoas</option></select></div><div><label class="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">Algum detalhe importante? <span class="font-normal normal-case tracking-normal text-stone-400">(opcional)</span></label><textarea class="field min-h-24 resize-y" id="details" placeholder="Horário, espaço, estilo de música, o que você imagina..."></textarea></div><button class="luxury-submit w-full rounded-xl px-4 py-4 text-[10px] font-extrabold uppercase tracking-[.18em] transition hover:-translate-y-1" type="submit">Enviar briefing pelo WhatsApp <span class="icon-arrow ml-2" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 16 16 4M7 4h9v9" stroke-linecap="round" stroke-linejoin="round" /></svg></span></button><p class="text-center text-[10px] leading-5 text-stone-400">Ao clicar, você será direcionado para uma conversa no WhatsApp. Nenhum valor é exibido nesta página: cada proposta é construída de acordo com o contexto do evento.</p></form></div></div></section>
-  </main>
+                <!-- Cards com os detalhes da Origem -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-left">
+                    <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-emerald-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 5</span>
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">ICMS 12% (ou 7%)</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">CI ≤ 40%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação inferior ou igual a 40%.</p>
+                    </div>
 
-  <footer class="relative overflow-hidden border-t border-stone-200 bg-cream py-16"><div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 text-center md:flex-row md:text-left"><div class="flex items-center gap-4"><img src="https://res.cloudinary.com/pai48o4n/image/upload/v1790460934/Logooficial_Design_Improvement.png" alt="Logo DJ Flória" class="h-20 w-20 shrink-0 object-contain drop-shadow-[0_8px_18px_rgba(249,115,22,.16)]" /><div><p class="font-serif text-2xl font-bold">FLÓRIA<span class="text-orange">.</span></p><p class="mt-2 max-w-[14rem] text-sm text-stone-500">Música que dá identidade ao seu evento.</p></div></div><div class="flex flex-col items-center gap-2 text-sm md:items-end"><a class="font-semibold hover:text-orange" href="https://wa.me/5541920034522" target="_blank">WhatsApp · (41) 92003-4522</a><a class="text-stone-500 hover:text-orange" href="https://www.instagram.com/djfloria" target="_blank">@djfloria</a></div></div><img src="https://i.imgur.com/jKrTxSq.png" alt="" aria-hidden="true" class="pointer-events-none absolute bottom-0 right-2 w-24 opacity-90 md:right-10 md:w-32" /><p class="mx-auto mt-12 max-w-7xl px-6 text-center text-[9px] uppercase tracking-widest text-stone-400">© 2026 Flória Performance Art · Curitiba e região</p></footer>
+                    <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-amber-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 3</span>
+                            <span class="text-xs font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded">ICMS 4%</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">40% &lt; CI ≤ 70%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação superior a 40% e igual ou inferior a 70%.</p>
+                    </div>
 
-  <script>
-    const form = document.getElementById('briefingForm');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const date = document.getElementById('date').value;
-      const periodInput = document.getElementById('period').value.trim();
-      if (!date && !periodInput) { alert('Informe uma data aproximada ou um período para o evento.'); document.getElementById('period').focus(); return; }
-      const period = periodInput || 'Data exata informada';
-      const location = document.getElementById('location').value;
-      const guests = document.getElementById('guests').value;
-      const event = document.querySelector('input[name="event"]:checked')?.value || '';
-      const duration = document.querySelector('input[name="duration"]:checked')?.value || 'Ainda não informado.';
-      const start = document.getElementById('startTime').value || 'A definir';
-      const end = document.getElementById('endTime').value || 'A definir';
-      const details = document.getElementById('details').value.trim() || 'Ainda não informado.';
-      const readableDate = date ? date.split('-').reverse().join('/') : 'Ainda não informado.';
-      const message = `Olá, Nathalia! Sou ${name}. Gostaria de consultar a disponibilidade da Flória.\n\n*Detalhes do evento*\n• Ocasião: ${event}\n• Data: ${readableDate}\n• Período: ${period}\n• Local: ${location}\n• Convidados: ${guests}\n• Duração aproximada: ${duration}\n• Horário: ${start} às ${end}\n• Observações: ${details}\n\nQuero entender a melhor experiência musical para esse contexto.`;
-      window.open(`https://wa.me/5541920034522?text=${encodeURIComponent(message)}`, '_blank');
-    });
-    document.querySelectorAll('.warm-dark').forEach((section) => {
-      section.addEventListener('pointermove', (event) => {
-        const rect = section.getBoundingClientRect();
-        section.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width) * 100}%`);
-        section.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height) * 100}%`);
-      }, { passive:true });
-    });
-    const scrollVideos = Array.from(document.querySelectorAll('video[data-scroll-video]'));
-    scrollVideos.forEach((video) => { video.preload = 'auto'; try { video.load(); } catch (_) {} });
-    const videoStates = new WeakMap();
-    const visibleRatio = (video) => {
-      const rect = video.getBoundingClientRect();
-      const visible = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-      return rect.height ? visible / rect.height : 0;
-    };
-    scrollVideos.forEach((video) => {
-      const state = { inside:false, wantsAutoPlay:false, retryTimers:[] };
-      const poster = video.parentElement && video.parentElement.querySelector('[data-video-poster]');
-      const showPoster = () => poster && poster.classList.remove('is-hidden');
-      const hidePoster = () => poster && poster.classList.add('is-hidden');
-      video.addEventListener('playing', hidePoster, { passive:true });
-      video.addEventListener('pause', () => { if (video.currentTime < 0.15) showPoster(); }, { passive:true });
-      videoStates.set(video, state);
-      const clearRetries = () => {
-        state.retryTimers.forEach((timer) => window.clearTimeout(timer));
-        state.retryTimers = [];
-      };
-      const tryAutoPlay = () => {
-        if (!state.inside || !state.wantsAutoPlay || video.paused === false) return;
-        video.muted = true;
-        video.defaultMuted = true;
-        video.autoplay = true;
-        video.setAttribute('muted', '');
-        video.setAttribute('autoplay', '');
-        video.setAttribute('playsinline', '');
-        video.setAttribute('webkit-playsinline', '');
-        const promise = video.play();
-        if (promise && promise.then) promise.then(() => { state.wantsAutoPlay = false; }).catch(() => {});
-      };
-      const enterVideo = () => {
-        if (state.inside) return;
-        state.inside = true;
-        state.wantsAutoPlay = true;
-        showPoster();
-        clearRetries();
-        try { video.currentTime = 0; } catch (_) {}
-        tryAutoPlay();
-        [250, 700, 1400, 2400, 3600].forEach((delay) => {
-          state.retryTimers.push(window.setTimeout(tryAutoPlay, delay));
-        });
-      };
-      const leaveVideo = () => {
-        if (!state.inside) return;
-        state.inside = false;
-        state.wantsAutoPlay = false;
-        clearRetries();
-        video.pause();
-      };
-      const syncVideoVisibility = () => {
-        const ratio = visibleRatio(video);
-        if (ratio >= 0.15) enterVideo();
-        else if (ratio <= 0.01) leaveVideo();
-      };
-      ['loadedmetadata','loadeddata','canplay','canplaythrough'].forEach((eventName) => {
-        video.addEventListener(eventName, tryAutoPlay, { passive:true });
-      });
-      const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.intersectionRatio >= 0.15) enterVideo();
-          else if (!entry.isIntersecting || entry.intersectionRatio <= 0.01) leaveVideo();
-        });
-      }, { threshold:[0, 0.01, 0.15], rootMargin:'0px' });
-      videoObserver.observe(video);
-      video._syncVideoVisibility = syncVideoVisibility;
-    });
-    let videoScrollTick = false;
-    const updateVideoVisibility = () => {
-      if (videoScrollTick) return;
-      videoScrollTick = true;
-      requestAnimationFrame(() => {
-        scrollVideos.forEach((video) => video._syncVideoVisibility());
-        videoScrollTick = false;
-      });
-    };
-    window.addEventListener('scroll', updateVideoVisibility, { passive:true });
-    window.addEventListener('resize', updateVideoVisibility, { passive:true });
-    window.addEventListener('pageshow', updateVideoVisibility, { passive:true });
-    updateVideoVisibility();
-    // IntersectionObserver plus the scroll fallback covers Safari/iPhone viewport updates.
-const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('active'); }), { threshold:.12 });
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-  </script>
+                    <div class="p-4 rounded-xl border border-rose-200 bg-rose-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-rose-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 8</span>
+                            <span class="text-xs font-bold text-rose-900 bg-rose-100 px-2 py-0.5 rounded">ICMS 4%</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">CI &gt; 70%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação superior a 70%.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Matriz dos 4 Cenários Comerciais -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="layout-grid" class="text-blue-600"></i>
+                    3. Matriz de Decisão: Os 4 Cenários Práticos
+                </h2>
+                <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Análise de Custo vs. Preço</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Cenário 1: Custo ALTO -->
+                <div class="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 4% (Origem 3 ou 8)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-amber-100 text-amber-700 rounded-lg">
+                            <i data-lucide="trending-up" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">1. Custo Importado ALTO</h3>
+                            <span class="text-xs text-amber-800 font-semibold">Numerador aumenta</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Insumo importado mais caro faz o Coeficiente (CI) subir. Ao ultrapassar 40%, passa a ser Origem 3 ou 8 e o ICMS cai para 4%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-amber-700">AUMENTA</strong></span>
+                        <span>ICMS / Origem: <strong class="text-amber-700">4% (Origem 3/8)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 2: Custo BAIXO -->
+                <div class="border-2 border-emerald-200 bg-emerald-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 12% (Origem 5)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                            <i data-lucide="trending-down" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">2. Custo Importado BAIXO</h3>
+                            <span class="text-xs text-emerald-800 font-semibold">Numerador diminui</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Insumo importado barato mantém o Coeficiente (CI) em 40% ou menos. Encaixa-se na Origem 5 com ICMS de 12%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-emerald-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-emerald-700">DIMINUI</strong></span>
+                        <span>ICMS / Origem: <strong class="text-emerald-700">12% (Origem 5)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 3: Preço ALTO -->
+                <div class="border-2 border-emerald-200 bg-emerald-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 12% (Origem 5)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">3. Preço de Venda ALTO</h3>
+                            <span class="text-xs text-emerald-800 font-semibold">Denominador aumenta</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Preço alto "dilui" o custo do insumo importado. A fração cai para 40% ou menos, enquadrando na Origem 5 com ICMS de 12%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-emerald-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-emerald-700">DIMINUI</strong></span>
+                        <span>ICMS / Origem: <strong class="text-emerald-700">12% (Origem 5)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 4: Preço BAIXO -->
+                <div class="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 4% (Origem 3 ou 8)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-amber-100 text-amber-700 rounded-lg">
+                            <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">4. Preço de Venda BAIXO</h3>
+                            <span class="text-xs text-amber-800 font-semibold">Denominador diminui</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Preço baixo aumenta a proporção do insumo importado no valor final. CI ultrapassa 40%, gerando Origem 3 ou 8 e ICMS de 4%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-amber-700">AUMENTA</strong></span>
+                        <span>ICMS / Origem: <strong class="text-amber-700">4% (Origem 3/8)</strong></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Simulador Interativo Rápidos -->
+        <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 card-shadow">
+            <h2 class="text-xl font-bold flex items-center gap-2 mb-2 text-blue-400">
+                <i data-lucide="sliders" class="w-5 h-5"></i>
+                Simulador Rápido de FCI e Origem do Item
+            </h2>
+            <p class="text-xs text-slate-400 mb-6">Insira os valores para obter instantaneamente o CI %, o Código de Origem e a Alíquota de ICMS.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
+                <div class="space-y-4 md:col-span-1 bg-slate-800 p-4 rounded-xl border border-slate-700">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Custo Insumo Importado (R$)</label>
+                        <input type="number" id="costInput" value="450" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Preço Venda sem Tributos (R$)</label>
+                        <input type="number" id="priceInput" value="1000" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Conteúdo Importação</span>
+                    <span id="ciResult" class="text-3xl sm:text-4xl font-black text-amber-400">45.0%</span>
+                    <span id="statusTag" class="inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        Superior a 40%
+                    </span>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Código de Origem (CST)</span>
+                    <span id="origemCode" class="text-3xl sm:text-4xl font-black text-amber-400">Origem 3</span>
+                    <span id="origemDesc" class="text-[11px] text-slate-300 mt-2 block font-medium">Nacional (40% &lt; CI ≤ 70%)</span>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Alíquota ICMS Interestadual</span>
+                    <span id="icmsResult" class="text-4xl font-black text-blue-400">4%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Tabela de Referência Oficial de Origem do FCI -->
+        <section class="bg-slate-100 rounded-2xl p-6 border border-slate-300">
+            <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-4 flex items-center gap-2">
+                <i data-lucide="bookmark" class="w-4 h-4 text-blue-600"></i>
+                Tabela Oficial do Código de Origem da Mercadoria (FCI / ICMS)
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center text-sm">5</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - CI ≤ 40%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-emerald-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>12% (ou 7%)</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 font-extrabold flex items-center justify-center text-sm">3</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - 40% &lt; CI ≤ 70%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e igual ou inferior a 70%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-amber-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>4%</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-800 font-extrabold flex items-center justify-center text-sm">8</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - CI &gt; 70%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-rose-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>4%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const costInput = document.getElementById('costInput');
+        const priceInput = document.getElementById('priceInput');
+        const ciResult = document.getElementById('ciResult');
+        const statusTag = document.getElementById('statusTag');
+        const origemCode = document.getElementById('origemCode');
+        const origemDesc = document.getElementById('origemDesc');
+        const icmsResult = document.getElementById('icmsResult');
+
+        function updateSim() {
+            const cost = parseFloat(costInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 1;
+
+            const ci = (cost / price) * 100;
+            ciResult.textContent = ci.toFixed(1) + '%';
+
+            if (ci <= 40) {
+                // Origem 5
+                icmsResult.textContent = '12%';
+                icmsResult.className = 'text-4xl font-black text-emerald-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-emerald-400';
+                statusTag.textContent = 'CI ≤ 40% (Predominância Nacional)';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+                
+                origemCode.textContent = 'Origem 5';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-emerald-400';
+                origemDesc.textContent = 'Nacional com CI ≤ 40%';
+            } else if (ci > 40 && ci <= 70) {
+                // Origem 3
+                icmsResult.textContent = '4%';
+                icmsResult.className = 'text-4xl font-black text-amber-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-amber-400';
+                statusTag.textContent = '40% < CI ≤ 70%';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+                
+                origemCode.textContent = 'Origem 3';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-amber-400';
+                origemDesc.textContent = 'Nacional com CI entre 40% e 70%';
+            } else {
+                // Origem 8
+                icmsResult.textContent = '4%';
+                icmsResult.className = 'text-4xl font-black text-rose-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-rose-400';
+                statusTag.textContent = 'CI > 70% (Alta Intensidade Importada)';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30';
+                
+                origemCode.textContent = 'Origem 8';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-rose-400';
+                origemDesc.textContent = 'Nacional com CI > 70%';
+            }
+        }
+
+        costInput.addEventListener('input', updateSim);
+        priceInput.addEventListener('input', updateSim);
+        
+        // Initial run
+        updateSim();
+    </script>
 </body>
 </html>
