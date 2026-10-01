@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico Executivo: Lógica do FCI, Origem do Item & Alíquotas de ICMS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-header { background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen pb-12">
+
+    <!-- Header Executivo -->
+    <header class="gradient-header text-white py-10 px-6 sm:px-12 mb-10 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 bg-blue-500/20 text-blue-300 text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3 border border-blue-400/30">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Gestão Tributária & Precificação
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                    FCI, Origem do Item & ICMS Interestadual
+                </h1>
+                <p class="text-slate-300 mt-2 text-base max-w-2xl">
+                    Guia visual de impacto entre Custo de Insumo Importado, Preço de Venda, Código de Origem (3, 5, 8) e Alíquota do ICMS.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-8 space-y-10">
+
+        <!-- 1. A Fórmula de Forma Clara -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-6">
+                <i data-lucide="calculator" class="text-blue-600"></i>
+                1. Como Funciona a Matemática do FCI (Conteúdo de Importação)
+            </h2>
+
+            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 flex flex-col md:flex-row items-center justify-around gap-6">
+                <div class="text-center md:text-left">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Coeficiente FCI (%)</span>
+                    <p class="text-2xl font-black text-slate-800 mt-1">CI = (Insumo / Preço) × 100</p>
+                    <p class="text-xs text-slate-500 mt-1">Calculado item a item na produção</p>
+                </div>
+
+                <div class="hidden md:block h-16 w-px bg-slate-300"></div>
+
+                <div class="flex flex-col gap-3 w-full md:w-auto">
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">N</div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold uppercase">Numerador (Topo)</span>
+                            <p class="text-sm font-semibold text-slate-700">Valor do Insumo Importado (R$)</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                        <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-sm">D</div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-semibold uppercase">Denominador (Base)</span>
+                            <p class="text-sm font-semibold text-slate-700">Preço de Venda Interestadual sem Tributos (R$)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. A Régua de Corte e Origem das Mercadorias -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-2">
+                <i data-lucide="git-commit" class="text-indigo-600"></i>
+                2. A Régua de Origem do Item e Alíquota de ICMS
+            </h2>
+            <p class="text-xs text-slate-500 mb-6">Dependendo do percentual apurado de FCI, o produto recebe um Código de Origem específico na nota fiscal.</p>
+
+            <div class="relative my-6">
+                <!-- Barra Visual Trifásica -->
+                <div class="h-10 w-full bg-slate-200 rounded-xl flex overflow-hidden p-1 border border-slate-300">
+                    <div class="w-[40%] bg-emerald-500 rounded-l-lg flex items-center justify-center text-white text-xs font-bold transition-all">
+                        CI ≤ 40% (Origem 5)
+                    </div>
+                    <div class="w-[30%] bg-amber-500 flex items-center justify-center text-white text-xs font-bold transition-all border-l border-r border-white/30">
+                        40% < CI ≤ 70% (Origem 3)
+                    </div>
+                    <div class="w-[30%] bg-rose-600 rounded-r-lg flex items-center justify-center text-white text-xs font-bold transition-all">
+                        CI > 70% (Origem 8)
+                    </div>
+                </div>
+
+                <!-- Cards com os detalhes da Origem -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6 text-left">
+                    <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-emerald-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 5</span>
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">ICMS 12% (ou 7%)</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">CI ≤ 40%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação inferior ou igual a 40%.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-amber-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 3</span>
+                            <span class="text-xs font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded">ICMS 4%</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">40% &lt; CI ≤ 70%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação superior a 40% e igual ou inferior a 70%.</p>
+                    </div>
+
+                    <div class="p-4 rounded-xl border border-rose-200 bg-rose-50/50">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-rose-600 text-white font-extrabold text-sm px-2.5 py-0.5 rounded-md">Origem 8</span>
+                            <span class="text-xs font-bold text-rose-900 bg-rose-100 px-2 py-0.5 rounded">ICMS 4%</span>
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-sm">CI &gt; 70%</h4>
+                        <p class="text-xs text-slate-600 mt-1">Nacional com Conteúdo de Importação superior a 70%.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Matriz dos 4 Cenários Comerciais -->
+        <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 card-shadow">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-6">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="layout-grid" class="text-blue-600"></i>
+                    3. Matriz de Decisão: Os 4 Cenários Práticos
+                </h2>
+                <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">Análise de Custo vs. Preço</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Cenário 1: Custo ALTO -->
+                <div class="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 4% (Origem 3 ou 8)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-amber-100 text-amber-700 rounded-lg">
+                            <i data-lucide="trending-up" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">1. Custo Importado ALTO</h3>
+                            <span class="text-xs text-amber-800 font-semibold">Numerador aumenta</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Insumo importado mais caro faz o Coeficiente (CI) subir. Ao ultrapassar 40%, passa a ser Origem 3 ou 8 e o ICMS cai para 4%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-amber-700">AUMENTA</strong></span>
+                        <span>ICMS / Origem: <strong class="text-amber-700">4% (Origem 3/8)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 2: Custo BAIXO -->
+                <div class="border-2 border-emerald-200 bg-emerald-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 12% (Origem 5)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                            <i data-lucide="trending-down" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">2. Custo Importado BAIXO</h3>
+                            <span class="text-xs text-emerald-800 font-semibold">Numerador diminui</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Insumo importado barato mantém o Coeficiente (CI) em 40% ou menos. Encaixa-se na Origem 5 com ICMS de 12%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-emerald-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-emerald-700">DIMINUI</strong></span>
+                        <span>ICMS / Origem: <strong class="text-emerald-700">12% (Origem 5)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 3: Preço ALTO -->
+                <div class="border-2 border-emerald-200 bg-emerald-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 12% (Origem 5)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                            <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">3. Preço de Venda ALTO</h3>
+                            <span class="text-xs text-emerald-800 font-semibold">Denominador aumenta</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Preço alto "dilui" o custo do insumo importado. A fração cai para 40% ou menos, enquadrando na Origem 5 com ICMS de 12%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-emerald-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-emerald-700">DIMINUI</strong></span>
+                        <span>ICMS / Origem: <strong class="text-emerald-700">12% (Origem 5)</strong></span>
+                    </div>
+                </div>
+
+                <!-- Cenário 4: Preço BAIXO -->
+                <div class="border-2 border-amber-200 bg-amber-50/50 rounded-xl p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-bl-lg">
+                        ICMS 4% (Origem 3 ou 8)
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="p-2 bg-amber-100 text-amber-700 rounded-lg">
+                            <i data-lucide="arrow-down-right" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900">4. Preço de Venda BAIXO</h3>
+                            <span class="text-xs text-amber-800 font-semibold">Denominador diminui</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Preço baixo aumenta a proporção do insumo importado no valor final. CI ultrapassa 40%, gerando Origem 3 ou 8 e ICMS de 4%.
+                    </p>
+                    <div class="bg-white/80 p-2.5 rounded-lg border border-amber-200 text-xs flex justify-between font-medium">
+                        <span>Resultado no CI: <strong class="text-amber-700">AUMENTA</strong></span>
+                        <span>ICMS / Origem: <strong class="text-amber-700">4% (Origem 3/8)</strong></span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Simulador Interativo Rápidos -->
+        <section class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 card-shadow">
+            <h2 class="text-xl font-bold flex items-center gap-2 mb-2 text-blue-400">
+                <i data-lucide="sliders" class="w-5 h-5"></i>
+                Simulador Rápido de FCI e Origem do Item
+            </h2>
+            <p class="text-xs text-slate-400 mb-6">Insira os valores para obter instantaneamente o CI %, o Código de Origem e a Alíquota de ICMS.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-stretch">
+                <div class="space-y-4 md:col-span-1 bg-slate-800 p-4 rounded-xl border border-slate-700">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Custo Insumo Importado (R$)</label>
+                        <input type="number" id="costInput" value="450" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Preço Venda sem Tributos (R$)</label>
+                        <input type="number" id="priceInput" value="1000" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-semibold focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Conteúdo Importação</span>
+                    <span id="ciResult" class="text-3xl sm:text-4xl font-black text-amber-400">45.0%</span>
+                    <span id="statusTag" class="inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                        Superior a 40%
+                    </span>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Código de Origem (CST)</span>
+                    <span id="origemCode" class="text-3xl sm:text-4xl font-black text-amber-400">Origem 3</span>
+                    <span id="origemDesc" class="text-[11px] text-slate-300 mt-2 block font-medium">Nacional (40% &lt; CI ≤ 70%)</span>
+                </div>
+
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700 text-center flex flex-col justify-center">
+                    <span class="text-xs text-slate-400 font-semibold uppercase block mb-1">Alíquota ICMS Interestadual</span>
+                    <span id="icmsResult" class="text-4xl font-black text-blue-400">4%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Tabela de Referência Oficial de Origem do FCI -->
+        <section class="bg-slate-100 rounded-2xl p-6 border border-slate-300">
+            <h3 class="font-bold text-slate-900 text-sm uppercase tracking-wide mb-4 flex items-center gap-2">
+                <i data-lucide="bookmark" class="w-4 h-4 text-blue-600"></i>
+                Tabela Oficial do Código de Origem da Mercadoria (FCI / ICMS)
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 font-extrabold flex items-center justify-center text-sm">5</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - CI ≤ 40%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-emerald-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>12% (ou 7%)</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-amber-100 text-amber-800 font-extrabold flex items-center justify-center text-sm">3</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - 40% &lt; CI ≤ 70%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e igual ou inferior a 70%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-amber-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>4%</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-800 font-extrabold flex items-center justify-center text-sm">8</span>
+                            <span class="font-bold text-slate-800 text-xs">Nacional - CI &gt; 70%</span>
+                        </div>
+                        <p class="text-xs text-slate-600">Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%.</p>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-bold text-rose-700">
+                        <span>Alíquota ICMS:</span>
+                        <span>4%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const costInput = document.getElementById('costInput');
+        const priceInput = document.getElementById('priceInput');
+        const ciResult = document.getElementById('ciResult');
+        const statusTag = document.getElementById('statusTag');
+        const origemCode = document.getElementById('origemCode');
+        const origemDesc = document.getElementById('origemDesc');
+        const icmsResult = document.getElementById('icmsResult');
+
+        function updateSim() {
+            const cost = parseFloat(costInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 1;
+
+            const ci = (cost / price) * 100;
+            ciResult.textContent = ci.toFixed(1) + '%';
+
+            if (ci <= 40) {
+                // Origem 5
+                icmsResult.textContent = '12%';
+                icmsResult.className = 'text-4xl font-black text-emerald-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-emerald-400';
+                statusTag.textContent = 'CI ≤ 40% (Predominância Nacional)';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+                
+                origemCode.textContent = 'Origem 5';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-emerald-400';
+                origemDesc.textContent = 'Nacional com CI ≤ 40%';
+            } else if (ci > 40 && ci <= 70) {
+                // Origem 3
+                icmsResult.textContent = '4%';
+                icmsResult.className = 'text-4xl font-black text-amber-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-amber-400';
+                statusTag.textContent = '40% < CI ≤ 70%';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+                
+                origemCode.textContent = 'Origem 3';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-amber-400';
+                origemDesc.textContent = 'Nacional com CI entre 40% e 70%';
+            } else {
+                // Origem 8
+                icmsResult.textContent = '4%';
+                icmsResult.className = 'text-4xl font-black text-rose-400';
+                ciResult.className = 'text-3xl sm:text-4xl font-black text-rose-400';
+                statusTag.textContent = 'CI > 70% (Alta Intensidade Importada)';
+                statusTag.className = 'inline-block mt-2 text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30';
+                
+                origemCode.textContent = 'Origem 8';
+                origemCode.className = 'text-3xl sm:text-4xl font-black text-rose-400';
+                origemDesc.textContent = 'Nacional com CI > 70%';
+            }
+        }
+
+        costInput.addEventListener('input', updateSim);
+        priceInput.addEventListener('input', updateSim);
+        
+        // Initial run
+        updateSim();
+    </script>
+</body>
+</html>
